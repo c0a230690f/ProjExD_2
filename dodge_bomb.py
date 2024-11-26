@@ -52,6 +52,8 @@ def check_bound(rct: pg.Rect) -> tuple[bool,bool]:
     # if kk_rct.colliderect(bb_rct):
     #    game_over(screen)
 
+#改行いらないよ
+
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))
