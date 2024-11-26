@@ -2,7 +2,7 @@ import os
 import random
 import sys
 import pygame as pg
-
+import time
 
 WIDTH, HEIGHT = 1100, 650
 DELTA = {
@@ -13,12 +13,25 @@ DELTA = {
 }
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
+def game_over(screen: pg.Surface) -> None:
+    go_bg = pg.Surface((1100,650))
+    pg.draw.rect(go_bg,(0,0,0),[0,0,1100,650])
+    go_bg.set_alpha(210)
+    screen.blit(go_bg,[0,0])
+    fonto = pg.font.Font(None, 80)
+    txt = fonto.render("Game Over",True,(255,255,255))
+    go_img = pg.transform.rotozoom(pg.image.load("fig/8.png"),0,0.9)
+    screen.blit(go_img,[340,290])
+    screen.blit(go_img,[720,290])
+    screen.blit(txt,[400,300])
+    pg.display.update()
+    time.sleep(5)
+
 def check_bound(rct: pg.Rect) -> tuple[bool,bool]:
     """
     引数であたえらrectが画面の中が外かを判定する
     引数:こうかとんrector 爆弾rect
     戻り値:真理値ダブル(横、縦)/画面内:Ture,画面外:False
-    
     """
     yoko,tate = True,True
     if rct.left < 0 or WIDTH < rct.right:
@@ -26,6 +39,11 @@ def check_bound(rct: pg.Rect) -> tuple[bool,bool]:
     if rct.top < 0 or HEIGHT < rct.bottom:
         tate = False
     return yoko,tate
+
+
+    # if kk_rct.colliderect(bb_rct):
+    #    game_over(screen)
+
 
 
 def main():
@@ -43,11 +61,13 @@ def main():
     vx,vy = 5,5
     clock = pg.time.Clock()
     tmr = 0
+
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: 
                 return
         if kk_rct.colliderect(bb_rct):
+            game_over(screen)
             print("ゲームオーバー")
             return #ゲームオーバー
         screen.blit(bg_img, [0, 0]) 
