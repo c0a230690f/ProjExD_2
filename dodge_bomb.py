@@ -4,6 +4,7 @@ import sys
 import pygame as pg
 import time
 
+
 WIDTH, HEIGHT = 1100, 650
 DELTA = {
     pg.K_UP:(0,-5),
@@ -27,6 +28,15 @@ def game_over(screen: pg.Surface) -> None:
     pg.display.update()
     time.sleep(5)
 
+# def init_bb_imgs() -> tuple[list[pg.Surface], list[int]]:
+#     bb_img,bbaccs = init_bb_imgs()
+#     avx = vx*bb_accs[min(tmr//500,9)]
+#     bb_img = bb_imgs[min(tmr//500,9)]
+#     accs = [a for a in range(1, 11)]
+#     for r in range(1, 11):
+#         bb_img = pg.Surface((20*r, 20*r))
+#         pg.draw.circle(bb_img, (255, 0, 0), (10*r, 10*r), 10*r)
+
 def check_bound(rct: pg.Rect) -> tuple[bool,bool]:
     """
     引数であたえらrectが画面の中が外かを判定する
@@ -39,12 +49,8 @@ def check_bound(rct: pg.Rect) -> tuple[bool,bool]:
     if rct.top < 0 or HEIGHT < rct.bottom:
         tate = False
     return yoko,tate
-
-
     # if kk_rct.colliderect(bb_rct):
     #    game_over(screen)
-
-
 
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
@@ -63,6 +69,11 @@ def main():
     tmr = 0
 
     while True:
+        # bb_img,bbaccs = init_bb_imgs()
+        # avx = vx*bb_accs[min(tmr//500,9)]
+        # bb_img = bb_imgs[min(tmr//500,9)]
+        # accs = [a for a in range(1, 11)]
+        
         for event in pg.event.get():
             if event.type == pg.QUIT: 
                 return
